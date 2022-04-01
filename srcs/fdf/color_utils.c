@@ -12,39 +12,27 @@
 
 #include "fdf.h"
 
-void	my_draw_line(t_data *img)
+int32_t	create_trgb(uint8_t t, uint8_t r, uint8_t g, uint8_t b)
 {
-	t_point	start;
-	t_point	end;
-
-	start.x = 10;
-	start.y = 10;
-	end.x = 100;
-	end.y = 100;
-	draw_line(img, start, end, 0x00FF0000);
+	return (*(int32_t *)(uint8_t [4]){b, g, r, t});
 }
 
-int	my_close(int keycode, t_vars *vars)
+uint8_t	get_t(int32_t trgb)
 {
-	ft_printf("keycode : %d\n", keycode);
-	if (keycode != ESC_1_KEYCODE && keycode != ESC_2_KEYCODE)
-		return (0);
-	mlx_destroy_window(vars->mlx, vars->win);
-	exit(0);
+	return (((uint8_t *)&trgb)[3]);
 }
 
-int	main(void)
+uint8_t	get_r(int32_t trgb)
 {
-	t_vars	vars;
-	t_data	img;
+	return (((uint8_t *)&trgb)[2]);
+}
 
-	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, WIDTH, HEIGHT, "Hello world!");
-	img.img = mlx_new_image(vars.mlx, WIDTH, HEIGHT);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-			&img.endian);
-	my_draw_line(&img);
-	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
-	mlx_hook(vars.win, 2, 1L << 0, my_close, &vars);
-	mlx_loop(vars.mlx);
+uint8_t	get_g(int32_t trgb)
+{
+	return (((uint8_t *)&trgb)[1]);
+}
+
+uint8_t	get_b(int32_t trgb)
+{
+	return (((uint8_t *)&trgb)[0]);
 }

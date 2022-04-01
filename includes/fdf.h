@@ -19,6 +19,9 @@
 # define WIDTH 800
 # define HEIGHT 600
 
+# define ESC_1_KEYCODE 53
+# define ESC_2_KEYCODE 65307
+
 typedef struct s_point {
 	int	x;
 	int	y;
@@ -33,7 +36,18 @@ typedef struct s_data {
 	int		endian;
 }	t_data;
 
+typedef struct s_vars {
+	void	*mlx;
+	void	*win;
+}	t_vars;
+
 void	draw_pixel(t_data *data, int x, int y, int color);
 void	draw_line(t_data *data, t_point start, t_point end, int color);
+
+int32_t	create_trgb(uint8_t t, uint8_t r, uint8_t g, uint8_t b);
+uint8_t	get_t(int32_t trgb);
+uint8_t	get_r(int32_t trgb);
+uint8_t	get_g(int32_t trgb);
+uint8_t	get_b(int32_t trgb);
 
 #endif /* FDF_H */
