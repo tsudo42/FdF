@@ -23,10 +23,17 @@
 # define ESC_2_KEYCODE 65307
 
 typedef struct s_point {
-	int	x;
-	int	y;
-	int	z;
+	int		x;
+	int		y;
+	int		z;
+	int32_t	color;
 }	t_point;
+
+typedef struct s_camera {
+	double	x;
+	double	y;
+	double	z;
+}	t_camera;
 
 typedef struct s_data {
 	void	*img;
@@ -36,10 +43,13 @@ typedef struct s_data {
 	int		endian;
 }	t_data;
 
-typedef struct s_vars {
-	void	*mlx;
-	void	*win;
-}	t_vars;
+typedef struct s_fdf {
+	void		*mlx;
+	void		*win;
+	t_point		**map;
+	t_camera	camera;
+	t_data		img;
+}	t_fdf;
 
 void	draw_pixel(t_data *data, int x, int y, int color);
 void	draw_line(t_data *data, t_point start, t_point end, int color);
