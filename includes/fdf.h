@@ -16,6 +16,15 @@
 # include "libft.h"
 # include "mlx.h"
 
+# define WIDTH 800
+# define HEIGHT 600
+
+typedef struct s_point {
+	int	x;
+	int	y;
+	int	z;
+}	t_point;
+
 typedef struct s_data {
 	void	*img;
 	char	*addr;
@@ -23,5 +32,8 @@ typedef struct s_data {
 	int		line_length;
 	int		endian;
 }	t_data;
+
+void	draw_pixel(t_data *data, int x, int y, int color);
+void	draw_line(t_data *data, t_point start, t_point end, int color);
 
 #endif /* FDF_H */
