@@ -1,4 +1,4 @@
-name: NormCI
+name: Norminette
 
 # Controls when the action will run.
 on: push
@@ -14,7 +14,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: checkout git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
 
       - name: Install Norminette
         run: |
@@ -22,4 +24,4 @@ jobs:
           python3 -m pip install norminette
 
       - name: Run Norminette
-        run: norminette srcs includes
+        run: norminette libs/libft srcs includes
