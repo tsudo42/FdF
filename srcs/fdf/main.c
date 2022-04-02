@@ -24,15 +24,20 @@ void	my_draw_line(t_data *img)
 	draw_line(img, start, end, 0x00FF0000);
 }
 
-int	my_close(int keycode, t_fdf *fdf)
+int	my_close(t_fdf *fdf)
 {
-	ft_printf("keycode : %d\n", keycode);
-	if (keycode != ESC_1_KEYCODE && keycode != ESC_2_KEYCODE)
-		return (0);
 	mlx_destroy_image(fdf->mlx, fdf->img.img);
 	mlx_destroy_window(fdf->mlx, fdf->win);
 	ft_free_set(&fdf->mlx, NULL);
 	exit(0);
+}
+
+int	key_hook(int keycode, t_fdf *fdf)
+{
+	ft_printf("keycode : %d\n", keycode);
+	if (keycode == ESC_1_KEYCODE || keycode == ESC_2_KEYCODE)
+		my_close(fdf);
+	return (0);
 }
 
 int	main(void)
@@ -46,6 +51,7 @@ int	main(void)
 			&fdf.img.bits_per_pixel, &fdf.img.line_length, &fdf.img.endian);
 	my_draw_line(&fdf.img);
 	mlx_put_image_to_window(fdf.mlx, fdf.win, fdf.img.img, 0, 0);
-	mlx_hook(fdf.win, 2, 1L << 0, my_close, &fdf);
+	mlx_hook(fdf.win, 2, 0, key_hook, &fdf);
+	mlx_hook(fdf.win, 17, 0, my_close, &fdf);
 	mlx_loop(fdf.mlx);
 }
