@@ -25,6 +25,8 @@ void	draw_line(t_data *data, t_point start, t_point end, int color)
 	t_point	diff;
 	long	i;
 	long	pix_len;
+	int		x;
+	int		y;
 
 	diff.x = end.x - start.x;
 	diff.y = end.y - start.y;
@@ -32,8 +34,10 @@ void	draw_line(t_data *data, t_point start, t_point end, int color)
 	i = 0;
 	while (i < pix_len)
 	{
-		draw_pixel(data, start.x + i * diff.x / pix_len,
-			start.y + i * diff.y / pix_len, color);
+		x = start.x + i * diff.x / pix_len;
+		y = start.y + i * diff.y / pix_len;
+		if (0 <= x && x < WIDTH && 0 <= y && y < HEIGHT)
+			draw_pixel(data, x, y, color);
 		i++;
 	}
 }

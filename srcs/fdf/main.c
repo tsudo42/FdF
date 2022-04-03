@@ -12,16 +12,38 @@
 
 #include "fdf.h"
 
-void	my_draw_line(t_data *img)
+void	connect_points(t_data *data, t_point start, t_point end)
 {
-	t_point	start;
-	t_point	end;
+	start.x *= 20;
+	start.y *= 20;
+	start.x += 100 - start.z * 1;
+	start.y += 100 - start.z * 1;
+	end.x *= 20;
+	end.y *= 20;
+	end.x += 100 - end.z * 1;
+	end.y += 100 - end.z * 1;
+	draw_line(data, start, end, 0x00FF0000);
+}
 
-	start.x = 10;
-	start.y = 10;
-	end.x = WIDTH - 10;
-	end.y = HEIGHT - 10;
-	draw_line(img, start, end, 0x00FF0000);
+void	my_draw_line(t_fdf *fdf)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < fdf->map_height)
+	{
+		x = 0;
+		while (x < fdf->map_width)
+		{
+			if (x + 1 < fdf->map_width)
+				connect_points(&(fdf->img), fdf->map[y][x], fdf->map[y][x + 1]);
+			if (y + 1 < fdf->map_height)
+				connect_points(&(fdf->img), fdf->map[y][x], fdf->map[y + 1][x]);
+			x++;
+		}
+		y++;
+	}
 }
 
 int	my_close(t_fdf *fdf)
@@ -54,7 +76,7 @@ int	main(int argc, char **argv)
 	fdf.img.img = mlx_new_image(fdf.mlx, WIDTH, HEIGHT);
 	fdf.img.addr = mlx_get_data_addr(fdf.img.img, \
 			&fdf.img.bits_per_pixel, &fdf.img.line_length, &fdf.img.endian);
-	my_draw_line(&fdf.img);
+	my_draw_line(&fdf);
 	mlx_put_image_to_window(fdf.mlx, fdf.win, fdf.img.img, 0, 0);
 	mlx_hook(fdf.win, 2, 0, key_hook, &fdf);
 	mlx_hook(fdf.win, 17, 0, my_close, &fdf);
