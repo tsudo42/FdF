@@ -29,6 +29,7 @@ int	my_close(t_fdf *fdf)
 	mlx_destroy_image(fdf->mlx, fdf->img.img);
 	mlx_destroy_window(fdf->mlx, fdf->win);
 	ft_free_set(&fdf->mlx, NULL);
+	ft_free_set((void **)&fdf->map, NULL);
 	exit(0);
 }
 
@@ -40,10 +41,14 @@ int	key_hook(int keycode, t_fdf *fdf)
 	return (0);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_fdf	fdf;
 
+	ft_memset(&fdf, 0, sizeof(t_fdf));
+	if (argc != 2 || argv[1] == NULL)
+		ft_exit(0, "input filename");
+	load_file(&fdf, argv[1]);
 	fdf.mlx = mlx_init();
 	fdf.win = mlx_new_window(fdf.mlx, WIDTH, HEIGHT, "fdf");
 	fdf.img.img = mlx_new_image(fdf.mlx, WIDTH, HEIGHT);

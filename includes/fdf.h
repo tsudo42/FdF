@@ -47,9 +47,13 @@ typedef struct s_fdf {
 	void		*mlx;
 	void		*win;
 	t_point		**map;
+	int			map_width;
+	int			map_height;
 	t_camera	camera;
 	t_data		img;
 }	t_fdf;
+
+void	load_file(t_fdf *fdf, const char *filename);
 
 void	draw_pixel(t_data *data, int x, int y, int color);
 void	draw_line(t_data *data, t_point start, t_point end, int color);
