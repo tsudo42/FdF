@@ -20,24 +20,53 @@ void	draw_pixel(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	draw_line(t_data *data, t_point start, t_point end, int color)
+t_point	mix_point(t_point start, t_point end, long step_i, long step_total)
 {
-	t_point	diff;
-	long	i;
-	long	pix_len;
-	int		x;
-	int		y;
+	t_point	dest;
+	long	color[4];
+	long	color_tmp;
+	int		i;
 
-	diff.x = end.x - start.x;
-	diff.y = end.y - start.y;
-	pix_len = diff.x * diff.x + diff.y * diff.y;
+	dest.x = start.x + (end.x - start.x) * step_i / step_total;
+	dest.y = start.y + (end.y - start.y) * step_i / step_total;
 	i = 0;
-	while (i < pix_len)
+	while (i < 4)
 	{
-		x = start.x + i * diff.x / pix_len;
-		y = start.y + i * diff.y / pix_len;
-		if (0 <= x && x < WIDTH && 0 <= y && y < HEIGHT)
-			draw_pixel(data, x, y, color);
+		color[i] = ((start.color >> ((3 - i) * 8)) & 0xFF);
+		color_tmp = ((end.color >> ((3 - i) * 8)) & 0xFF);
+		color[i] = color[i] + (color_tmp - color[i]) * step_i / step_total;
+		if (color[i] < 0)
+			color[i] = 0;
+		if (color[i] > UINT8_MAX)
+			color[i] = UINT8_MAX;
 		i++;
 	}
+	dest.color = create_trgb(color[0], color[1], color[2], color[3]);
+	return (dest);
+}
+
+void	draw_line(t_data *data, t_point start, t_point end, int color)
+{
+	t_point	dest;
+	long	step_i;
+	long	step_total;
+
+	step_total = 0;
+	if (end.x > start.x)
+		step_total += end.x - start.x;
+	else
+		step_total += start.x - end.x;
+	if (end.y > start.y)
+		step_total += end.y - start.y;
+	else
+		step_total += start.y - end.y;
+	step_i = 0;
+	while (step_i <= step_total)
+	{
+		dest = mix_point(start, end, step_i, step_total);
+		if (0 <= dest.x && dest.x < WIDTH && 0 <= dest.y && dest.y < HEIGHT)
+			draw_pixel(data, dest.x, dest.y, dest.color);
+		step_i++;
+	}
+	(void)color;
 }
