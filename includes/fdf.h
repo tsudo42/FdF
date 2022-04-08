@@ -22,7 +22,10 @@
 
 # define ESC_1_KEYCODE 53
 # define ESC_2_KEYCODE 65307
+# define SPACE_KEYCODE 32
 # define P_KEYCODE 112
+# define H_KEYCODE 104
+# define L_KEYCODE 108
 
 typedef struct s_point {
 	int		raw_x;
@@ -79,6 +82,7 @@ void	draw_fdf(t_fdf *fdf);
 
 /* camera */
 int		reset_camera(t_fdf *fdf);
+void	rotate_camera(t_fdf *fdf, int direction_key);
 void	add_camera_effect(t_fdf *fdf, t_point *point);
 
 /* hook */

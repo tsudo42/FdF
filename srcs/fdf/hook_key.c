@@ -35,10 +35,13 @@ static void	swap_color(t_fdf *fdf)
 
 int	key_hook(int keycode, t_fdf *fdf)
 {
-	ft_printf("keycode : %d\n", keycode);
 	if (keycode == ESC_1_KEYCODE || keycode == ESC_2_KEYCODE)
 		fdf_close(fdf);
 	else if (keycode == P_KEYCODE)
 		swap_color(fdf);
+	else if (keycode == SPACE_KEYCODE)
+		reset_camera(fdf);
+	else if (keycode == H_KEYCODE || keycode == L_KEYCODE)
+		rotate_camera(fdf, keycode);
 	return (0);
 }

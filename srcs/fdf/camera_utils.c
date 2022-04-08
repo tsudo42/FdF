@@ -23,6 +23,18 @@ int	reset_camera(t_fdf *fdf)
 	return (0);
 }
 
+void	rotate_camera(t_fdf *fdf, int direction_key)
+{
+	if (direction_key == H_KEYCODE)
+		fdf->camera.r_xy += M_PI_4 / 4;
+	else if (direction_key == L_KEYCODE)
+		fdf->camera.r_xy -= M_PI_4 / 4;
+	if (fdf->camera.r_xy > M_PI)
+		fdf->camera.r_xy -= M_PI * 2;
+	else if (fdf->camera.r_xy < -M_PI)
+		fdf->camera.r_xy += M_PI * 2;
+}
+
 void	add_camera_effect(t_fdf *fdf, t_point *point)
 {
 	double	tmp_x;

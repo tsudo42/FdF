@@ -14,7 +14,7 @@
 
 void	reset_screen(t_fdf *fdf)
 {
-	ft_memset(fdf->img.addr, 0, fdf->img.line_length * fdf->map_height);
+	ft_memset(fdf->img.addr, 0, fdf->img.line_length * HEIGHT);
 }
 
 void	draw_pixel(t_data *data, int x, int y, int color)
