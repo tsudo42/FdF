@@ -22,6 +22,7 @@
 
 # define ESC_1_KEYCODE 53
 # define ESC_2_KEYCODE 65307
+# define P_KEYCODE 112
 
 typedef struct s_point {
 	int		raw_x;
