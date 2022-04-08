@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_file.c                                        :+:      :+:    :+:   */
+/*   load_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsudo <tsudo@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,7 +13,7 @@
 #include "fdf.h"
 #include <fcntl.h>
 
-void	ft_append_content(t_list **lst, void *content)
+static void	ft_append_content(t_list **lst, void *content)
 {
 	t_list	*node;
 	t_list	*back;
@@ -41,7 +41,7 @@ void	ft_append_content(t_list **lst, void *content)
 	back->next = node;
 }
 
-void	interpret_map(t_list *map_list, t_point **point_table)
+static void	interpret_map(t_list *map_list, t_point **point_table)
 {
 	t_list	*row_list;
 	int		x;
@@ -65,7 +65,7 @@ void	interpret_map(t_list *map_list, t_point **point_table)
 	ft_lstclear(&map_list, NULL);
 }
 
-t_list	*read_map(int fd, t_list **to_free)
+static t_list	*read_map(int fd, t_list **to_free)
 {
 	t_list	*map_list;
 	t_list	*row_list;
@@ -92,7 +92,7 @@ t_list	*read_map(int fd, t_list **to_free)
 	return (map_list);
 }
 
-t_point	**alloc_table(t_list *map_list, int height, int width)
+static t_point	**alloc_table(t_list *map_list, int height, int width)
 {
 	t_list	*row_list;
 	t_point	**point_table;

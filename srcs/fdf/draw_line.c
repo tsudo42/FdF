@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color_utils.c                                      :+:      :+:    :+:   */
+/*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsudo <tsudo@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,32 +12,32 @@
 
 #include "fdf.h"
 
-int32_t	create_trgb(uint8_t t, uint8_t r, uint8_t g, uint8_t b)
+static t_point	mix_point(t_point start, t_point end, double rate)
 {
-	return (t << 24 | r << 16 | g << 8 | b);
+	if (rate <= 0)
+		return (start);
+	if (rate >= 1)
+		return (end);
+	start.dx = start.dx * rate + end.dx * (1 - rate);
+	start.dy = start.dy * rate + end.dy * (1 - rate);
+	start.color = mix_color(start.color, end.color, rate);
+	return (start);
 }
 
-int32_t	mix_color(int32_t start_color, int32_t end_color, double rate)
+void	draw_line(t_fdf *fdf, t_data *data, t_point start, t_point end)
 {
-	long	color[4];
-	long	color_tmp;
-	int		i;
+	t_point	dest;
+	long	step_i;
+	long	step_total;
 
-	if (rate <= 0)
-		return (start_color);
-	if (rate >= 1)
-		return (end_color);
-	i = 0;
-	while (i < 4)
+	add_camera_effect(fdf, &start);
+	add_camera_effect(fdf, &end);
+	step_total = (fabs(start.dx - end.dx) + fabs(start.dy - end.dy)) / 2;
+	step_i = 0;
+	while (step_i <= step_total)
 	{
-		color[i] = ((start_color >> ((3 - i) * 8)) & 0xFF);
-		color_tmp = ((end_color >> ((3 - i) * 8)) & 0xFF);
-		color[i] = color[i] * rate + color_tmp * (1 - rate);
-		if (color[i] < 0)
-			color[i] = 0;
-		if (color[i] > UINT8_MAX)
-			color[i] = UINT8_MAX;
-		i++;
+		dest = mix_point(start, end, (double)step_i / (double)step_total);
+		draw_pixel(data, lround(dest.dx), lround(dest.dy), dest.color);
+		step_i++;
 	}
-	return (create_trgb(color[0], color[1], color[2], color[3]));
 }

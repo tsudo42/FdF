@@ -15,7 +15,7 @@ LIBFT		:= libs/libft/libft.a
 MINILIBX	:= libs/minilibx-linux/libmlx.a
 CC			:= gcc
 CFLAGS		:= -Wall -Wextra -Werror -MMD -MP
-LDFLAGS		:= -lm -lmlx -lX11 -lXext
+LDFLAGS		:= -lmlx -lX11 -lXext
 RM			:= rm -f
 
 UNAME		:= $(shell uname)
@@ -28,11 +28,15 @@ endif
 
 SRCS	+= $(F_SRCS)
 F_SRCS	:= \
-	srcs/fdf/draw_mlx.c \
+	srcs/fdf/draw_line.c \
+	srcs/fdf/hook_key.c \
 	srcs/fdf/load_file.c \
 	srcs/fdf/load_point.c \
 	srcs/fdf/color_utils.c \
+	srcs/fdf/camera_utils.c \
 	srcs/fdf/main.c \
+	srcs/fdf/draw_fdf.c \
+	srcs/fdf/draw_utils.c \
 
 INCS	:= \
 	includes \

@@ -60,16 +60,28 @@ typedef struct s_fdf {
 	t_data		img;
 }	t_fdf;
 
+/* loading */
 void	load_file(t_fdf *fdf, const char *filename);
 void	load_point(t_point *point, char *token, int x, int y);
 
+/* color */
+int32_t	create_trgb(uint8_t t, uint8_t r, uint8_t g, uint8_t b);
+int32_t	mix_color(int32_t start_color, int32_t end_color, double rate);
+
+/* drawing */
+void	reset_screen(t_fdf *fdf);
 void	draw_pixel(t_data *data, int x, int y, int color);
 void	draw_line(t_fdf *fdf, t_data *data, t_point start, t_point end);
+void	draw_fdf(t_fdf *fdf);
 
-int32_t	create_trgb(uint8_t t, uint8_t r, uint8_t g, uint8_t b);
-uint8_t	get_t(int32_t trgb);
-uint8_t	get_r(int32_t trgb);
-uint8_t	get_g(int32_t trgb);
-uint8_t	get_b(int32_t trgb);
+/* camera */
+int		reset_camera(t_fdf *fdf);
+void	add_camera_effect(t_fdf *fdf, t_point *point);
+
+/* hook */
+int		key_hook(int keycode, t_fdf *fdf);
+
+/* main */
+int		fdf_close(t_fdf *fdf);
 
 #endif /* FDF_H */
