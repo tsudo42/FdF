@@ -31,6 +31,7 @@ typedef struct s_point {
 	double	dx;
 	double	dy;
 	double	dz;
+	int32_t	color_alt;
 }	t_point;
 
 typedef struct s_camera {
@@ -67,6 +68,7 @@ void	load_point(t_point *point, char *token, int x, int y);
 /* color */
 int32_t	create_trgb(uint8_t t, uint8_t r, uint8_t g, uint8_t b);
 int32_t	mix_color(int32_t start_color, int32_t end_color, double rate);
+void	set_altcolor(t_fdf *fdf);
 
 /* drawing */
 void	reset_screen(t_fdf *fdf);

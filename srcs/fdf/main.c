@@ -50,7 +50,7 @@ int	main(int argc, char **argv)
 	fdf.img.img = mlx_new_image(fdf.mlx, WIDTH, HEIGHT);
 	fdf.img.addr = mlx_get_data_addr(fdf.img.img, \
 			&fdf.img.bits_per_pixel, &fdf.img.line_length, &fdf.img.endian);
-	mlx_hook(fdf.win, 2, 0, key_hook, &fdf);
+	mlx_key_hook(fdf.win, key_hook, &fdf);
 	mlx_hook(fdf.win, 17, 0, fdf_close, &fdf);
 	mlx_loop_hook(fdf.mlx, update_fdf, &fdf);
 	mlx_loop(fdf.mlx);

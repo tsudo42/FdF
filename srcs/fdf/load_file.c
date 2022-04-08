@@ -143,6 +143,7 @@ void	load_file(t_fdf *fdf, const char *filename)
 	ft_lstclear(&to_free, free);
 	ft_lstclear(&map_list, NULL);
 	fdf->map = point_table;
+	set_altcolor(fdf);
 	if (close(fd) < 0)
 		ft_exit(1, "close error");
 }

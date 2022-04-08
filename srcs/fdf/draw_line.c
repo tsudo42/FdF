@@ -18,8 +18,8 @@ static t_point	mix_point(t_point start, t_point end, double rate)
 		return (start);
 	if (rate >= 1)
 		return (end);
-	start.dx = start.dx * rate + end.dx * (1 - rate);
-	start.dy = start.dy * rate + end.dy * (1 - rate);
+	start.dx = start.dx * (1 - rate) + end.dx * rate;
+	start.dy = start.dy * (1 - rate) + end.dy * rate;
 	start.color = mix_color(start.color, end.color, rate);
 	return (start);
 }
