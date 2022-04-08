@@ -44,13 +44,15 @@ static void	ft_append_content(t_list **lst, void *content)
 static void	interpret_map(t_list *map_list, t_point **point_table)
 {
 	t_list	*row_list;
+	t_list	*row_list_head;
 	int		x;
 	int		y;
 
 	y = 0;
 	while (map_list != NULL)
 	{
-		row_list = map_list->content;
+		row_list_head = map_list->content;
+		row_list = row_list_head;
 		x = 0;
 		while (row_list != NULL)
 		{
@@ -58,11 +60,10 @@ static void	interpret_map(t_list *map_list, t_point **point_table)
 			x++;
 			row_list = row_list->next;
 		}
-		ft_lstclear(&row_list, NULL);
+		ft_lstclear(&row_list_head, NULL);
 		y++;
 		map_list = map_list->next;
 	}
-	ft_lstclear(&map_list, NULL);
 }
 
 static t_list	*read_map(int fd, t_list **to_free)
@@ -73,12 +74,12 @@ static t_list	*read_map(int fd, t_list **to_free)
 	char	*token;
 
 	map_list = NULL;
-	row_list = NULL;
 	*to_free = NULL;
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
 		ft_append_content(to_free, line);
+		row_list = NULL;
 		token = ft_strtok(line, " ");
 		while (token != NULL)
 		{
@@ -86,7 +87,6 @@ static t_list	*read_map(int fd, t_list **to_free)
 			token = ft_strtok(NULL, " ");
 		}
 		ft_append_content(&map_list, row_list);
-		row_list = NULL;
 		line = get_next_line(fd);
 	}
 	return (map_list);
@@ -141,6 +141,7 @@ void	load_file(t_fdf *fdf, const char *filename)
 	point_table = alloc_table(map_list, fdf->map_height, fdf->map_width);
 	interpret_map(map_list, point_table);
 	ft_lstclear(&to_free, free);
+	ft_lstclear(&map_list, NULL);
 	fdf->map = point_table;
 	if (close(fd) < 0)
 		ft_exit(1, "close error");
