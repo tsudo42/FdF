@@ -62,8 +62,8 @@ void	load_point(t_point *point, char *token, int x, int y)
 		*color_str = '\0';
 		color_str++;
 	}
-	point->x = x;
-	point->y = y;
-	point->z = load_z_point(token);
+	point->raw_x = x;
+	point->raw_y = y;
+	point->raw_z = load_z_point(token);
 	point->color = load_color_value(color_str);
 }

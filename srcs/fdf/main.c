@@ -12,24 +12,12 @@
 
 #include "fdf.h"
 
-void	connect_points(t_data *data, t_point start, t_point end)
-{
-	start.x *= 20;
-	start.y *= 20;
-	start.x += 100 - start.z * 1;
-	start.y += 100 - start.z * 1;
-	end.x *= 20;
-	end.y *= 20;
-	end.x += 100 - end.z * 1;
-	end.y += 100 - end.z * 1;
-	draw_line(data, start, end, 0x00FF0000);
-}
-
 void	my_draw_line(t_fdf *fdf)
 {
 	int	x;
 	int	y;
 
+	ft_memset(fdf->img.addr, 0, fdf->img.line_length * fdf->map_height);
 	y = 0;
 	while (y < fdf->map_height)
 	{
@@ -37,9 +25,9 @@ void	my_draw_line(t_fdf *fdf)
 		while (x < fdf->map_width)
 		{
 			if (x + 1 < fdf->map_width)
-				connect_points(&(fdf->img), fdf->map[y][x], fdf->map[y][x + 1]);
+				draw_line(fdf, &(fdf->img), fdf->map[y][x], fdf->map[y][x + 1]);
 			if (y + 1 < fdf->map_height)
-				connect_points(&(fdf->img), fdf->map[y][x], fdf->map[y + 1][x]);
+				draw_line(fdf, &(fdf->img), fdf->map[y][x], fdf->map[y + 1][x]);
 			x++;
 		}
 		y++;
@@ -63,6 +51,17 @@ int	key_hook(int keycode, t_fdf *fdf)
 	return (0);
 }
 
+int	reset_camera(t_fdf *fdf)
+{
+	fdf->camera.parallel_x = WIDTH / 2;
+	fdf->camera.parallel_y = HEIGHT / 2;
+	fdf->camera.magnify_x = 4;
+	fdf->camera.magnify_y = 3;
+	fdf->camera.magnify_z = 3;
+	fdf->camera.r_xy = M_PI_4;
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_fdf	fdf;
@@ -71,6 +70,7 @@ int	main(int argc, char **argv)
 	if (argc != 2 || argv[1] == NULL)
 		ft_exit(0, "input filename");
 	load_file(&fdf, argv[1]);
+	reset_camera(&fdf);
 	fdf.mlx = mlx_init();
 	fdf.win = mlx_new_window(fdf.mlx, WIDTH, HEIGHT, "fdf");
 	fdf.img.img = mlx_new_image(fdf.mlx, WIDTH, HEIGHT);

@@ -15,7 +15,7 @@ LIBFT		:= libs/libft/libft.a
 MINILIBX	:= libs/minilibx-linux/libmlx.a
 CC			:= gcc
 CFLAGS		:= -Wall -Wextra -Werror -MMD -MP
-LDFLAGS		:= -lmlx -lX11 -lXext
+LDFLAGS		:= -lm -lmlx -lX11 -lXext
 RM			:= rm -f
 
 UNAME		:= $(shell uname)
