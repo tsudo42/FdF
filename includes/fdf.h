@@ -54,6 +54,7 @@ typedef struct s_fdf {
 }	t_fdf;
 
 void	load_file(t_fdf *fdf, const char *filename);
+void	load_point(t_point *point, char *token, int x, int y);
 
 void	draw_pixel(t_data *data, int x, int y, int color);
 void	draw_line(t_data *data, t_point start, t_point end, int color);

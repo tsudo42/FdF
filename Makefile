@@ -30,6 +30,7 @@ SRCS	+= $(F_SRCS)
 F_SRCS	:= \
 	srcs/fdf/draw_mlx.c \
 	srcs/fdf/load_file.c \
+	srcs/fdf/load_point.c \
 	srcs/fdf/color_utils.c \
 	srcs/fdf/main.c \
 

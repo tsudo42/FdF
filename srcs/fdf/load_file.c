@@ -36,7 +36,7 @@ void	ft_append_content(t_list **lst, void *content)
 		size++;
 		back = back->next;
 	}
-	if (size > INT_MAX)
+	if (size > INT_MAX / 100)
 		ft_exit(1, "map error: too big");
 	back->next = node;
 }
@@ -54,10 +54,7 @@ void	interpret_map(t_list *map_list, t_point **point_table)
 		x = 0;
 		while (row_list != NULL)
 		{
-			point_table[y][x].x = x;
-			point_table[y][x].y = y;
-			point_table[y][x].z = ft_atoi(row_list->content);
-			point_table[y][x].color = create_trgb(0, 0xFF, 0, 0);
+			load_point(&(point_table[y][x]), row_list->content, x, y);
 			x++;
 			row_list = row_list->next;
 		}
@@ -132,7 +129,7 @@ void	load_file(t_fdf *fdf, const char *filename)
 
 	if (filename == NULL)
 		ft_exit(1, "filename error");
-	fd = open(filename, O_RDONLY);
+	fd = open(ft_validate_file_ext(filename, ".fdf", "fdf: "), O_RDONLY);
 	if (fd < 0)
 		ft_exit(1, "open error");
 	to_free = NULL;
