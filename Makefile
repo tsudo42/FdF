@@ -37,6 +37,7 @@ F_SRCS	:= \
 	srcs/fdf/main.c \
 	srcs/fdf/draw_fdf.c \
 	srcs/fdf/draw_utils.c \
+	srcs/fdf/load_file_eof.c \
 
 INCS	:= \
 	includes \

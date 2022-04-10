@@ -74,10 +74,11 @@ static t_list	*read_map(int fd, t_list **to_free)
 	char	*token;
 
 	map_list = NULL;
-	*to_free = NULL;
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
+		if (is_empty_line(line))
+			break ;
 		ft_append_content(to_free, line);
 		row_list = NULL;
 		token = ft_strtok(line, " ");
@@ -89,6 +90,8 @@ static t_list	*read_map(int fd, t_list **to_free)
 		ft_append_content(&map_list, row_list);
 		line = get_next_line(fd);
 	}
+	ft_free_set((void **)&line, NULL);
+	load_file_eof(fd, "invalid map");
 	return (map_list);
 }
 

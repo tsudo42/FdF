@@ -78,8 +78,10 @@ typedef struct s_fdf {
 }	t_fdf;
 
 /* loading */
+int		is_empty_line(const char *line);
 void	load_file(t_fdf *fdf, const char *filename);
 void	load_point(t_point *point, char *token, int x, int y);
+void	load_file_eof(int fd, const char *error_msg);
 
 /* color */
 int32_t	create_trgb(uint8_t t, uint8_t r, uint8_t g, uint8_t b);
