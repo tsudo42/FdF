@@ -12,6 +12,27 @@
 
 #include "fdf.h"
 
+static void	draw_minimap(t_fdf *fdf)
+{
+	int		x;
+	int		y;
+	t_point	point;
+
+	y = 0;
+	while (y < fdf->map_height)
+	{
+		x = 0;
+		while (x < fdf->map_width)
+		{
+			point = fdf->map[y][x];
+			if (point.raw_x < fdf->map_width && point.raw_y < fdf->map_height)
+				draw_pixel(&(fdf->img), point.raw_x, point.raw_y, point.color);
+			x++;
+		}
+		y++;
+	}
+}
+
 static void	draw_fdf_iter_x(t_fdf *fdf, int x, int y, int is_angle_positive)
 {
 	if (is_angle_positive)
@@ -65,4 +86,6 @@ void	draw_fdf(t_fdf *fdf)
 			y--;
 		}
 	}
+	if (fdf->camera.minimap)
+		draw_minimap(fdf);
 }

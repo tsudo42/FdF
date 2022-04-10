@@ -33,6 +33,14 @@ static void	swap_color(t_fdf *fdf)
 	}
 }
 
+static void	toggle_minimap(t_fdf *fdf)
+{
+	if (fdf->camera.minimap)
+		fdf->camera.minimap = 0;
+	else
+		fdf->camera.minimap = 1;
+}
+
 int	key_hook(int keycode, t_fdf *fdf)
 {
 	if (keycode == ESC_1_KEYCODE || keycode == ESC_2_KEYCODE)
@@ -49,5 +57,7 @@ int	key_hook(int keycode, t_fdf *fdf)
 		move_camera(fdf, keycode);
 	else if (keycode == J_KEYCODE || keycode == K_KEYCODE)
 		zoom_camera(fdf, keycode);
+	else if (keycode == M_KEYCODE)
+		toggle_minimap(fdf);
 	return (0);
 }

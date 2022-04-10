@@ -39,6 +39,7 @@
 # define D_KEYCODE 100
 # define J_KEYCODE 106
 # define K_KEYCODE 107
+# define M_KEYCODE 109
 
 typedef struct s_point {
 	int		raw_x;
@@ -55,6 +56,7 @@ typedef struct s_camera {
 	double	parallel_y;
 	double	magnify_rate;
 	double	r_xy;
+	int		minimap;
 }	t_camera;
 
 typedef struct s_data {

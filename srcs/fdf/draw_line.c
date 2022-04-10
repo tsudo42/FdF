@@ -18,9 +18,9 @@ static int	round_inf(double val, int nearly_inf)
 
 	class = fpclassify(val);
 	if (class != FP_INFINITE && class != FP_NAN)
-		return(lround(val));
+		return (lround(val));
 	else
-		return(lround(copysign(nearly_inf, val)));
+		return (lround(copysign(nearly_inf, val)));
 }
 
 static int	check_void(t_point start, t_point end)
