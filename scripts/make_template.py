@@ -28,7 +28,7 @@ LIBFT		:= libs/libft/libft.a
 MINILIBX	:= libs/minilibx-linux/libmlx.a
 CC			:= gcc
 CFLAGS		:= -Wall -Wextra -Werror -MMD -MP
-LDFLAGS		:= -lmlx -lX11 -lXext
+LDFLAGS		:= -lm -lft -lmlx -lX11 -lXext
 RM			:= rm -f
 
 UNAME		:= $(shell uname)
@@ -56,13 +56,11 @@ OBJDIR	= objs/
 OBJS	= $(patsubst %.c,$(OBJDIR)%.o, $(notdir $(SRCS)))
 DEPS	= $(OBJS:.o=.d)
 CFLAGS	+= $(addprefix -I,$(INCS))
-
-LIBDIR	= libs/
+LDFLAGS	+= $(addprefix -L,$(dir $(LIBS)))
 
 ifeq ($(UNAME), Darwin)
 	# mac
-	LDFLAGS	+= -Llibs/minilibx-linux -L/usr/X11R6/lib
-	LDFLAGS	+= -framework OpenGL -framework AppKit
+	LDFLAGS	+= -L/usr/X11R6/lib -framework OpenGL -framework AppKit
 endif
 
 vpath %.c $(sort $(dir $(SRCS)))
@@ -96,7 +94,7 @@ $(OBJDIR)%.o: %.c
 	@$(CC) $(CFLAGS) -c -o $@ $<
 	@printf "$(GR)+$(RC)"
 
-$(LIBDIR)%.a:
+%.a:
 	@printf "\\n$(CY)~~~ Preparing $@ ~~~\\n$(RC)"
 	@make -C $(dir $@)
 	@printf "$(CY)~~~ $@ Ready ~~~\\n$(RC)"
