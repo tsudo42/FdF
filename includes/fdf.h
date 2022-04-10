@@ -47,9 +47,7 @@ typedef struct s_point {
 typedef struct s_camera {
 	double	parallel_x;
 	double	parallel_y;
-	double	magnify_xyz;
-	double	magnify_yz;
-	double	magnify_z;
+	double	magnify_rate;
 	double	r_xy;
 }	t_camera;
 
