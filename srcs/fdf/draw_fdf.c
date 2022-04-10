@@ -70,20 +70,20 @@ void	draw_fdf(t_fdf *fdf)
 	is_angle_positive = fdf->camera.r_xy > 0;
 	if (-M_2_PI < fdf->camera.r_xy && fdf->camera.r_xy < M_2_PI)
 	{
-		y = 0;
-		while (y < fdf->map_height)
-		{
-			draw_fdf_iter_x(fdf, 0, y, is_angle_positive);
-			y++;
-		}
-	}
-	else
-	{
 		y = fdf->map_height - 1;
 		while (y >= 0)
 		{
 			draw_fdf_iter_x(fdf, 0, y, is_angle_positive);
 			y--;
+		}
+	}
+	else
+	{
+		y = 0;
+		while (y < fdf->map_height)
+		{
+			draw_fdf_iter_x(fdf, 0, y, is_angle_positive);
+			y++;
 		}
 	}
 	if (fdf->camera.minimap)

@@ -90,8 +90,8 @@ void	add_camera_effect(t_fdf *fdf, t_point *point)
 		point->dx * sin(fdf->camera.r_xy) + point->dy * cos(fdf->camera.r_xy);
 	point->dx = tmp_x;
 	point->dy = tmp_y;
-	point->dy -= point->raw_z * fdf->camera.magnify_rate;
 	point->dy *= M_SQRT1_2;
+	point->dy -= point->raw_z * fdf->camera.magnify_rate;
 	point->dx += WIDTH / 2;
 	point->dy += HEIGHT / 2;
 }
