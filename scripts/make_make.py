@@ -25,6 +25,7 @@ def get_body(dirname):
 def update_makefile():
 	with open("Makefile", mode='w') as fobj:
 		fobj.write(MAKEFILE_PART1)
+		fobj.writelines(get_body("camera"))
 		fobj.writelines(get_body("fdf"))
 		fobj.write(MAKEFILE_PART2)
 

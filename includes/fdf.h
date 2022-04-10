@@ -23,7 +23,6 @@
 # define ZOOM_RATE 1.1
 # define MOVE_RATE 20
 
-# define MAP_POSITION_ZOOM_RATE 10
 # define MAX_ZOOM_RATE 1e4
 # define MIN_ZOOM_RATE 1e-4
 
@@ -39,6 +38,8 @@
 # define D_KEYCODE 100
 # define J_KEYCODE 106
 # define K_KEYCODE 107
+# define I_KEYCODE 105
+# define U_KEYCODE 117
 # define M_KEYCODE 109
 
 typedef struct s_point {
@@ -54,6 +55,7 @@ typedef struct s_point {
 typedef struct s_camera {
 	double	parallel_x;
 	double	parallel_y;
+	double	z_rate;
 	double	magnify_rate;
 	double	r_xy;
 	int		minimap;
@@ -99,6 +101,7 @@ int		reset_camera(t_fdf *fdf);
 void	rotate_camera(t_fdf *fdf, int direction_key);
 void	move_camera(t_fdf *fdf, int zoomrate_key);
 void	zoom_camera(t_fdf *fdf, int zoomrate_key);
+void	change_z_altitude_camera(t_fdf *fdf, int direction_key);
 void	add_camera_effect(t_fdf *fdf, t_point *point);
 
 /* hook */

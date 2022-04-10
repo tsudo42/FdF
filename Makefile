@@ -26,6 +26,15 @@ endif
 
 # **************************************************************************** #
 
+SRCS	+= $(C_SRCS)
+C_SRCS	:= \
+	srcs/camera/change_z_altitude.c \
+	srcs/camera/zoom_camera.c \
+	srcs/camera/move_camera.c \
+	srcs/camera/rotate_camera.c \
+	srcs/camera/add_camera_effect.c \
+	srcs/camera/reset_camera.c \
+
 SRCS	+= $(F_SRCS)
 F_SRCS	:= \
 	srcs/fdf/draw_line.c \
@@ -33,7 +42,6 @@ F_SRCS	:= \
 	srcs/fdf/load_file.c \
 	srcs/fdf/load_point.c \
 	srcs/fdf/color_utils.c \
-	srcs/fdf/camera_utils.c \
 	srcs/fdf/main.c \
 	srcs/fdf/draw_fdf.c \
 	srcs/fdf/draw_utils.c \
