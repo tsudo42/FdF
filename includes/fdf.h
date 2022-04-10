@@ -26,6 +26,12 @@
 # define P_KEYCODE 112
 # define H_KEYCODE 104
 # define L_KEYCODE 108
+# define W_KEYCODE 119
+# define A_KEYCODE 97
+# define S_KEYCODE 115
+# define D_KEYCODE 100
+# define J_KEYCODE 106
+# define K_KEYCODE 107
 
 typedef struct s_point {
 	int		raw_x;
@@ -41,8 +47,8 @@ typedef struct s_point {
 typedef struct s_camera {
 	double	parallel_x;
 	double	parallel_y;
-	double	magnify_x;
-	double	magnify_y;
+	double	magnify_xyz;
+	double	magnify_yz;
 	double	magnify_z;
 	double	r_xy;
 }	t_camera;
@@ -83,6 +89,8 @@ void	draw_fdf(t_fdf *fdf);
 /* camera */
 int		reset_camera(t_fdf *fdf);
 void	rotate_camera(t_fdf *fdf, int direction_key);
+void	move_camera(t_fdf *fdf, int zoomrate_key);
+void	zoom_camera(t_fdf *fdf, int zoomrate_key);
 void	add_camera_effect(t_fdf *fdf, t_point *point);
 
 /* hook */

@@ -43,5 +43,11 @@ int	key_hook(int keycode, t_fdf *fdf)
 		reset_camera(fdf);
 	else if (keycode == H_KEYCODE || keycode == L_KEYCODE)
 		rotate_camera(fdf, keycode);
+	else if (keycode == W_KEYCODE || keycode == S_KEYCODE)
+		move_camera(fdf, keycode);
+	else if (keycode == A_KEYCODE || keycode == D_KEYCODE)
+		move_camera(fdf, keycode);
+	else if (keycode == J_KEYCODE || keycode == K_KEYCODE)
+		zoom_camera(fdf, keycode);
 	return (0);
 }
