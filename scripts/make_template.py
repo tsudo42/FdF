@@ -82,7 +82,7 @@ all: $(NAME)
 $(NAME): $(LIBS) $(OBJDIR) $(OBJS)
 	@printf "\\n$(GR)=== Compiled [$(CC) $(CFLAGS)] ==="
 	@printf "\\n--- $(notdir $(SRCS))$(RC)\\n"
-	@$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(LIBS) $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $@
 	@printf "$(YE)&&& Linked [$(CC) $(LDFLAGS)] &&&\\n--- $(NAME)$(RC)\\n"
 
 -include $(DEPS)
