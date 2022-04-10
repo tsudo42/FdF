@@ -47,7 +47,6 @@ typedef struct s_point {
 	int32_t	color;
 	double	dx;
 	double	dy;
-	double	dz;
 	int32_t	color_alt;
 }	t_point;
 

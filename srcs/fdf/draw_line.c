@@ -12,15 +12,35 @@
 
 #include "fdf.h"
 
+static int	round_inf(double val, int nearly_inf)
+{
+	int	class;
+
+	class = fpclassify(val);
+	if (class != FP_INFINITE && class != FP_NAN)
+		return(lround(val));
+	else
+		return(lround(copysign(nearly_inf, val)));
+}
+
 static int	check_void(t_point start, t_point end)
 {
-	if (start.raw_x < 0 && end.raw_x < 0)
+	int	start_rounded_x;
+	int	start_rounded_y;
+	int	end_rounded_x;
+	int	end_rounded_y;
+
+	start_rounded_x = round_inf(start.dx, WIDTH + 100);
+	start_rounded_y = round_inf(start.dy, HEIGHT + 100);
+	end_rounded_x = round_inf(end.dx, WIDTH + 100);
+	end_rounded_y = round_inf(end.dy, HEIGHT + 100);
+	if (start_rounded_x < 0 && end_rounded_x < 0)
 		return (1);
-	if (start.raw_y < 0 && end.raw_y < 0)
+	if (start_rounded_x >= WIDTH && end_rounded_x >= WIDTH)
 		return (1);
-	if (start.raw_x >= WIDTH && end.raw_x >= WIDTH)
+	if (start_rounded_y < 0 && end_rounded_y < 0)
 		return (1);
-	if (start.raw_y >= HEIGHT && end.raw_y >= HEIGHT)
+	if (start_rounded_y >= HEIGHT && end_rounded_y >= HEIGHT)
 		return (1);
 	return (0);
 }
@@ -30,10 +50,10 @@ static long	count_total_step(t_point start, t_point end)
 	long	x_abs;
 	long	y_abs;
 
-	x_abs = start.raw_x - end.raw_x;
+	x_abs = lround(start.dx) - lround(end.dx);
 	if (x_abs < 0)
 		x_abs = -x_abs;
-	y_abs = start.raw_y - end.raw_y;
+	y_abs = lround(start.dy) - lround(end.dy);
 	if (y_abs < 0)
 		y_abs = -y_abs;
 	if (x_abs > y_abs)
@@ -44,14 +64,16 @@ static long	count_total_step(t_point start, t_point end)
 
 static t_point	mix_point(t_point start, t_point end, double rate)
 {
+	t_point	dest;
+
 	if (rate <= 0)
 		return (start);
 	if (rate >= 1)
 		return (end);
-	start.dx = start.dx * (1 - rate) + end.dx * rate;
-	start.dy = start.dy * (1 - rate) + end.dy * rate;
-	start.color = mix_color(start.color, end.color, rate);
-	return (start);
+	dest.dx = start.dx * (1 - rate) + end.dx * rate;
+	dest.dy = start.dy * (1 - rate) + end.dy * rate;
+	dest.color = mix_color(start.color, end.color, rate);
+	return (dest);
 }
 
 void	draw_line(t_fdf *fdf, t_data *data, t_point start, t_point end)
@@ -62,10 +84,6 @@ void	draw_line(t_fdf *fdf, t_data *data, t_point start, t_point end)
 
 	add_camera_effect(fdf, &start);
 	add_camera_effect(fdf, &end);
-	start.raw_x = lround(start.dx);
-	start.raw_y = lround(start.dy);
-	end.raw_x = lround(end.dx);
-	end.raw_y = lround(end.dy);
 	if (check_void(start, end))
 		return ;
 	step_total = count_total_step(start, end);
@@ -73,7 +91,8 @@ void	draw_line(t_fdf *fdf, t_data *data, t_point start, t_point end)
 	while (step_i <= step_total)
 	{
 		dest = mix_point(start, end, (double)step_i / (double)step_total);
-		draw_pixel(data, lround(dest.dx), lround(dest.dy), dest.color);
+		draw_pixel(data, round_inf(dest.dx, WIDTH + 100), \
+			round_inf(dest.dy, HEIGHT + 100), dest.color);
 		step_i++;
 	}
 }
