@@ -31,8 +31,15 @@ int	fdf_close(t_fdf *fdf)
 
 int	update_fdf(t_fdf *fdf)
 {
-	draw_fdf(fdf);
-	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img.img, 0, 0);
+	static int	frame = 0;
+
+	frame++;
+	if (frame >= FRAME_RATE)
+	{
+		draw_fdf(fdf);
+		mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img.img, 0, 0);
+		frame = 0;
+	}
 	return (0);
 }
 

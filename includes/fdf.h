@@ -19,6 +19,13 @@
 
 # define WIDTH 800
 # define HEIGHT 600
+# define FRAME_RATE 16
+# define ZOOM_RATE 1.1
+# define MOVE_RATE 20
+
+# define MAP_POSITION_ZOOM_RATE 10
+# define MAX_ZOOM_RATE 1e4
+# define MIN_ZOOM_RATE 1e-4
 
 # define ESC_1_KEYCODE 53
 # define ESC_2_KEYCODE 65307
