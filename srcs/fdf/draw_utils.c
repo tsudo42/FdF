@@ -28,3 +28,24 @@ void	draw_pixel(t_data *data, int x, int y, int color)
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
+
+void	draw_minimap(t_fdf *fdf)
+{
+	int		x;
+	int		y;
+	t_point	point;
+
+	y = 0;
+	while (y < fdf->map_height)
+	{
+		x = 0;
+		while (x < fdf->map_width)
+		{
+			point = fdf->map[y][x];
+			if (point.raw_x < fdf->map_width && point.raw_y < fdf->map_height)
+				draw_pixel(&(fdf->img), point.raw_x, point.raw_y, point.color);
+			x++;
+		}
+		y++;
+	}
+}

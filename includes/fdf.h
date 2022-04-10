@@ -95,6 +95,7 @@ void	reset_screen(t_fdf *fdf);
 void	draw_pixel(t_data *data, int x, int y, int color);
 void	draw_line(t_fdf *fdf, t_data *data, t_point start, t_point end);
 void	draw_fdf(t_fdf *fdf);
+void	draw_minimap(t_fdf *fdf);
 
 /* camera */
 int		reset_camera(t_fdf *fdf);
