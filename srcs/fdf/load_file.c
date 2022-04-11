@@ -81,11 +81,11 @@ static t_list	*read_map(int fd, t_list **to_free)
 			break ;
 		ft_append_content(to_free, line);
 		row_list = NULL;
-		token = ft_strtok(line, " ");
+		token = ft_strtok(line, " \n");
 		while (token != NULL)
 		{
 			ft_append_content(&row_list, token);
-			token = ft_strtok(NULL, " ");
+			token = ft_strtok(NULL, " \n");
 		}
 		ft_append_content(&map_list, row_list);
 		line = get_next_line(fd);

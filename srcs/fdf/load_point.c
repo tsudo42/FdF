@@ -17,15 +17,16 @@ static int	load_z_point(char *z_str)
 	long	z_value;
 	char	*endptr;
 
+	errno = 0;
 	z_value = ft_strtol(z_str, &endptr, 0);
-	if (z_value < INT_MIN / 100 || INT_MAX / 100 < z_value)
-		ft_exit(1, "map error: too big");
 	if (*endptr != '\0' && *endptr != '\n')
 	{
 		ft_putstr_fd("map error: invalid parameter: ", 2);
 		ft_putendl_fd(z_str, 2);
 		ft_exit(1, NULL);
 	}
+	if (z_value < INT_MIN / 100 || INT_MAX / 100 < z_value || errno)
+		ft_exit(1, "map error: too big");
 	return (z_value);
 }
 
@@ -36,8 +37,10 @@ static int	load_color_value(char *color_str)
 
 	if (color_str != NULL)
 	{
+		errno = 0;
 		color_value = ft_strtoul(color_str, &endptr, 0);
-		if (UINT32_MAX < color_value || (*endptr != '\0' && *endptr != '\n'))
+		if (UINT32_MAX < color_value || (*endptr != '\0' && *endptr != '\n') || \
+			errno)
 		{
 			ft_putstr_fd("map error: invalid parameter: ", 2);
 			ft_putendl_fd(color_str, 2);
