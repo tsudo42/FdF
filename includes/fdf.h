@@ -25,6 +25,7 @@
 
 # define MAX_ZOOM_RATE 1e4
 # define MIN_ZOOM_RATE 1e-4
+# define MAX_MOVE_VAL 1e4
 
 # define ESC_1_KEYCODE 53
 # define ESC_2_KEYCODE 65307
