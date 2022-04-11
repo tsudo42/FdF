@@ -99,9 +99,9 @@ static void	draw_fdf_normal(t_fdf *fdf)
 void	draw_fdf(t_fdf *fdf)
 {
 	reset_screen(fdf);
-	if (0 <= fdf->camera.r_xy && fdf->camera.r_xy < 1)
+	if (0 <= fdf->camera.r_xy && fdf->camera.r_xy < 1.5)
 		draw_fdf_normal(fdf);
-	else if (-1 < fdf->camera.r_xy && fdf->camera.r_xy < 0)
+	else if (-1.5 < fdf->camera.r_xy && fdf->camera.r_xy < 0)
 		draw_fdf_reverse_x(fdf);
 	else if (fdf->camera.r_xy > 0)
 		draw_fdf_reverse_y(fdf);
