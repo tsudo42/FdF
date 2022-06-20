@@ -29,6 +29,7 @@ endif
 SRCS	+= $(C_SRCS)
 C_SRCS	:= \
 	srcs/camera/change_z_altitude.c \
+	srcs/camera/dist_camera.c \
 	srcs/camera/zoom_camera.c \
 	srcs/camera/move_camera.c \
 	srcs/camera/rotate_camera.c \

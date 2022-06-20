@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_camera_effect.c                                :+:      :+:    :+:   */
+/*   dist_camera.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsudo <tsudo@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,26 +12,15 @@
 
 #include "fdf.h"
 
-void	add_camera_effect(t_fdf *fdf, t_point *point)
+void	dist_camera(t_fdf *fdf, int dist_key)
 {
-	double	tmp_x;
-	double	tmp_y;
-
-	point->dx = (point->raw_x - fdf->map_width / 2) * 10;
-	point->dy = (point->raw_y - fdf->map_height / 2) * 10;
-	point->dx += fdf->camera.parallel_x;
-	point->dy += fdf->camera.parallel_y;
-	point->dx *= fdf->camera.magnify_rate;
-	point->dy *= fdf->camera.magnify_rate;
-	tmp_x = \
-		point->dx * fdf->camera.r_xy_cos - point->dy * fdf->camera.r_xy_sin;
-	tmp_y = \
-		point->dx * fdf->camera.r_xy_sin + point->dy * fdf->camera.r_xy_cos;
-	point->dx = tmp_x;
-	point->dy = tmp_y;
-	point->dy -= point->raw_z * \
-		fdf->camera.magnify_rate * fdf->camera.z_rate / M_SQRT1_2;
-	point->dy *= fdf->camera.r_z_cos;
-	point->dx += WIDTH / 2;
-	point->dy += HEIGHT / 2;
+	if (dist_key == T_KEYCODE)
+		fdf->camera.r_z += M_PI / 16;
+	else if (dist_key == Y_KEYCODE)
+		fdf->camera.r_z -= M_PI / 16;
+	if (fdf->camera.r_z < 0)
+		fdf->camera.r_z = 0;
+	if (fdf->camera.r_z > M_PI_2)
+		fdf->camera.r_z = M_PI_2;
+	fdf->camera.r_z_cos = cos(fdf->camera.r_z);
 }

@@ -59,6 +59,8 @@ int	key_hook(int keycode, t_fdf *fdf)
 		zoom_camera(fdf, keycode);
 	else if (keycode == U_KEYCODE || keycode == I_KEYCODE)
 		change_z_altitude_camera(fdf, keycode);
+	else if (keycode == T_KEYCODE || keycode == Y_KEYCODE)
+		dist_camera(fdf, keycode);
 	else if (keycode == M_KEYCODE)
 		toggle_minimap(fdf);
 	return (0);

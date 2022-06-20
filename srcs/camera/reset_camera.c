@@ -21,5 +21,7 @@ int	reset_camera(t_fdf *fdf)
 	fdf->camera.r_xy = M_PI_4;
 	fdf->camera.r_xy_cos = cos(fdf->camera.r_xy);
 	fdf->camera.r_xy_sin = sin(fdf->camera.r_xy);
+	fdf->camera.r_z_cos = 1 / sqrt(3);
+	fdf->camera.r_z = acos(fdf->camera.r_z_cos);
 	return (0);
 }

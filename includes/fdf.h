@@ -42,6 +42,8 @@
 # define I_KEYCODE 105
 # define U_KEYCODE 117
 # define M_KEYCODE 109
+# define Y_KEYCODE 121
+# define T_KEYCODE 116
 
 typedef struct s_point {
 	int		raw_x;
@@ -61,6 +63,8 @@ typedef struct s_camera {
 	double	r_xy;
 	double	r_xy_sin;
 	double	r_xy_cos;
+	double	r_z;
+	double	r_z_cos;
 	int		minimap;
 }	t_camera;
 
@@ -106,6 +110,7 @@ void	rotate_camera(t_fdf *fdf, int direction_key);
 void	move_camera(t_fdf *fdf, int zoomrate_key);
 void	zoom_camera(t_fdf *fdf, int zoomrate_key);
 void	change_z_altitude_camera(t_fdf *fdf, int direction_key);
+void	dist_camera(t_fdf *fdf, int dist_key);
 void	add_camera_effect(t_fdf *fdf, t_point *point);
 
 /* hook */
