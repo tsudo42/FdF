@@ -33,23 +33,23 @@ void	move_camera(t_fdf *fdf, int move_key)
 
 	if (move_key == W_KEYCODE)
 	{
-		tmp_x = MOVE_RATE * sin(fdf->camera.r_xy);
-		tmp_y = MOVE_RATE * cos(fdf->camera.r_xy);
+		tmp_x = MOVE_RATE * fdf->camera.r_xy_sin;
+		tmp_y = MOVE_RATE * fdf->camera.r_xy_cos;
 	}
 	else if (move_key == S_KEYCODE)
 	{
-		tmp_x = -MOVE_RATE * sin(fdf->camera.r_xy);
-		tmp_y = -MOVE_RATE * cos(fdf->camera.r_xy);
+		tmp_x = -MOVE_RATE * fdf->camera.r_xy_sin;
+		tmp_y = -MOVE_RATE * fdf->camera.r_xy_cos;
 	}
 	else if (move_key == A_KEYCODE)
 	{
-		tmp_x = MOVE_RATE * cos(fdf->camera.r_xy);
-		tmp_y = -MOVE_RATE * sin(fdf->camera.r_xy);
+		tmp_x = MOVE_RATE * fdf->camera.r_xy_cos;
+		tmp_y = -MOVE_RATE * fdf->camera.r_xy_sin;
 	}
 	else if (move_key == D_KEYCODE)
 	{
-		tmp_x = -MOVE_RATE * cos(fdf->camera.r_xy);
-		tmp_y = MOVE_RATE * sin(fdf->camera.r_xy);
+		tmp_x = -MOVE_RATE * fdf->camera.r_xy_cos;
+		tmp_y = MOVE_RATE * fdf->camera.r_xy_sin;
 	}
 	move_camera_set(fdf, tmp_x, tmp_y);
 }

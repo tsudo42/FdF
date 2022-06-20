@@ -24,9 +24,9 @@ void	add_camera_effect(t_fdf *fdf, t_point *point)
 	point->dx *= fdf->camera.magnify_rate;
 	point->dy *= fdf->camera.magnify_rate;
 	tmp_x = \
-		point->dx * cos(fdf->camera.r_xy) - point->dy * sin(fdf->camera.r_xy);
+		point->dx * fdf->camera.r_xy_cos - point->dy * fdf->camera.r_xy_sin;
 	tmp_y = \
-		point->dx * sin(fdf->camera.r_xy) + point->dy * cos(fdf->camera.r_xy);
+		point->dx * fdf->camera.r_xy_sin + point->dy * fdf->camera.r_xy_cos;
 	point->dx = tmp_x;
 	point->dy = tmp_y;
 	point->dy -= point->raw_z * \

@@ -22,4 +22,6 @@ void	rotate_camera(t_fdf *fdf, int direction_key)
 		fdf->camera.r_xy -= M_PI * 2;
 	else if (fdf->camera.r_xy < -M_PI)
 		fdf->camera.r_xy += M_PI * 2;
+	fdf->camera.r_xy_cos = cos(fdf->camera.r_xy);
+	fdf->camera.r_xy_sin = sin(fdf->camera.r_xy);
 }

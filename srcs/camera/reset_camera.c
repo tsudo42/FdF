@@ -19,5 +19,7 @@ int	reset_camera(t_fdf *fdf)
 	fdf->camera.z_rate = 1;
 	fdf->camera.magnify_rate = 1;
 	fdf->camera.r_xy = M_PI_4;
+	fdf->camera.r_xy_cos = cos(fdf->camera.r_xy);
+	fdf->camera.r_xy_sin = sin(fdf->camera.r_xy);
 	return (0);
 }

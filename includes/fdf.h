@@ -59,6 +59,8 @@ typedef struct s_camera {
 	double	z_rate;
 	double	magnify_rate;
 	double	r_xy;
+	double	r_xy_sin;
+	double	r_xy_cos;
 	int		minimap;
 }	t_camera;
 
