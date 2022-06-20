@@ -12,8 +12,38 @@
 
 #include "fdf.h"
 
-static void	move_camera_set(t_fdf *fdf, double x_val, double y_val)
+static void	move_camera_set(t_fdf *fdf, int key, double *x_val, double *y_val)
 {
+	if (key == W_KEYCODE)
+	{
+		*x_val = MOVE_RATE * fdf->camera.r_xy_sin;
+		*y_val = MOVE_RATE * fdf->camera.r_xy_cos;
+	}
+	else if (key == S_KEYCODE)
+	{
+		*x_val = -MOVE_RATE * fdf->camera.r_xy_sin;
+		*y_val = -MOVE_RATE * fdf->camera.r_xy_cos;
+	}
+	else if (key == A_KEYCODE)
+	{
+		*x_val = MOVE_RATE * fdf->camera.r_xy_cos;
+		*y_val = -MOVE_RATE * fdf->camera.r_xy_sin;
+	}
+	else if (key == D_KEYCODE)
+	{
+		*x_val = -MOVE_RATE * fdf->camera.r_xy_cos;
+		*y_val = MOVE_RATE * fdf->camera.r_xy_sin;
+	}
+}
+
+void	move_camera(t_fdf *fdf, int move_key)
+{
+	double	x_val;
+	double	y_val;
+
+	x_val = 0;
+	y_val = 0;
+	move_camera_set(fdf, move_key, &x_val, &y_val);
 	if (fdf->camera.parallel_x > MAX_ZOOM_RATE && x_val > 0)
 		return ;
 	if (fdf->camera.parallel_y > MAX_ZOOM_RATE && y_val > 0)
@@ -24,32 +54,4 @@ static void	move_camera_set(t_fdf *fdf, double x_val, double y_val)
 		return ;
 	fdf->camera.parallel_x += x_val;
 	fdf->camera.parallel_y += y_val;
-}
-
-void	move_camera(t_fdf *fdf, int move_key)
-{
-	double	tmp_x;
-	double	tmp_y;
-
-	if (move_key == W_KEYCODE)
-	{
-		tmp_x = MOVE_RATE * fdf->camera.r_xy_sin;
-		tmp_y = MOVE_RATE * fdf->camera.r_xy_cos;
-	}
-	else if (move_key == S_KEYCODE)
-	{
-		tmp_x = -MOVE_RATE * fdf->camera.r_xy_sin;
-		tmp_y = -MOVE_RATE * fdf->camera.r_xy_cos;
-	}
-	else if (move_key == A_KEYCODE)
-	{
-		tmp_x = MOVE_RATE * fdf->camera.r_xy_cos;
-		tmp_y = -MOVE_RATE * fdf->camera.r_xy_sin;
-	}
-	else if (move_key == D_KEYCODE)
-	{
-		tmp_x = -MOVE_RATE * fdf->camera.r_xy_cos;
-		tmp_y = MOVE_RATE * fdf->camera.r_xy_sin;
-	}
-	move_camera_set(fdf, tmp_x, tmp_y);
 }
